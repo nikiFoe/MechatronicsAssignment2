@@ -1,6 +1,6 @@
 #include "I2C_MPU6886.h"
 #include <Stepper.h>  
-
+//I2C_MPU6886 imu(0x68, Wire1);
 I2C_MPU6886 imu(I2C_MPU6886_DEFAULT_ADDRESS, Wire1);
 const int buttonPin = 14;
 int buttonState = 0;
@@ -22,6 +22,7 @@ void setup() {
   delay(1000);
 
   Wire1.begin(23, 22);
+  
 
   pinMode(buttonPin, INPUT);
 
@@ -47,13 +48,13 @@ void loop() {
   Serial.println(buttonState);
 
   Serial.println("clockwise");
-  myStepper.step(stepsPerRevolution);
+  //myStepper.step(stepsPerRevolution);
 
   imu.getAccel(&ax, &ay, &az);
   imu.getGyro(&gx, &gy, &gz);
   imu.getTemp(&t);
   sprintf(acMsg,"%f,%f,%f,%f,%f,%f,%f\n", ax, ay, az, gx, gy, gz, t);
-  //Serial.println(acMsg);
+  Serial.println(acMsg);
 
   delay(100);
 }
